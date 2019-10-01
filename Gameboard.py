@@ -7,7 +7,7 @@ y = 8
 c=4 #number of colours in the game, easier to see monos if lower
 
 score = 0
-s=6 # 2 below the length of the row for the if statements below hard coded for now
+s=x-2 # updated from being hard coded
 def Gameboard(x, y):
     board = [[random.randint(1, c) for i in range(x)] for j in range(y)]         
     pprint(board) 
@@ -38,5 +38,13 @@ def Gameboard(x, y):
     print "Has anything changed?"  # the 0s should have been removed here
     pprint(board)
 
-    
+
+    for i in range(0, x):
+        f = x - len(board[i])
+        extras = [random.randint(1, c) for k in range(f)]
+        print extras #just to give a visual on what is happening
+        board[i] = board[i] + extras
+
+    pprint(board)
+    # this works nicely up to this point - the next step is to work out how to test a 'move'
 Gameboard(x,y)
