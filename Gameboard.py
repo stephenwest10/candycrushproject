@@ -1,10 +1,10 @@
 import random, math
-x = 8
+x = 8 #board size
 y = 8
-c=4
+c=4 #number of colours in the game, easier to see monos if lower
 
 score = 0
-s=6
+s=6 # 2 below the length of the row for the if statements below
 def Gameboard(x, y):
     col1 = []
     col2 = []
@@ -17,7 +17,7 @@ def Gameboard(x, y):
     def col_board(x):
         for i in range(0,x):
             col1.append(random.randint(1,c))    
-            col2.append(random.randint(1,c))                              #this really needs tidying and I need to think of a better way
+            col2.append(random.randint(1,c))             #this really needs tidying and I need to think of a better way
             col3.append(random.randint(1,c))
             col4.append(random.randint(1,c))
             col5.append(random.randint(1,c))
@@ -60,7 +60,7 @@ def Gameboard(x, y):
 
         
 
-    print "Has anything changed?"
+    print "Has anything changed?"  # just printing to see if it works - will delete later
     print (board[0])
     print (board[1])
     print (board[2])
@@ -80,7 +80,7 @@ def Gameboard(x, y):
         board[0].pop(indices[1])
         board[0].pop(indices[2])
     except:
-        print "no 0 in line 1"
+        print "no 0 in line 1"  #all testing stuff - may delete
     try:
         #board[1] = board[1].remove(0)
         indices1 = [i for i, x in enumerate(board[1]) if x == 0]
@@ -89,7 +89,7 @@ def Gameboard(x, y):
         board[1].pop(indices1[1])
         board[1].pop(indices1[2])
     except:
-        print "no 0 in line 2"
+        print "no 0 in line 2" 
     try:
         #board[2] = board[2].remove(0)
         indices2 = [i for i, x in enumerate(board[2]) if x == 0]
@@ -144,7 +144,7 @@ def Gameboard(x, y):
         board[7].pop(indices7[2])
     except:
         print "no 0 in line 8"
-    print "Has anything changed?"
+    print "Has anything changed?"  # the 0s should have been removed here
     print board[0]
     print board[1]
     print board[2]
