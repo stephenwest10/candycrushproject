@@ -7,7 +7,7 @@ y = 8
 c=4 #number of colours in the game, easier to see monos if lower
 
 score = 0
-s=6 # 2 below the length of the row for the if statements below
+s=6 # 2 below the length of the row for the if statements below hard coded for now
 def Gameboard(x, y):
     board = [[random.randint(1, c) for i in range(x)] for j in range(y)]         
     pprint(board) 
