@@ -14,3 +14,18 @@ Brief outline of the project:
     
     4. Work out which strategy is best depending on what you're trying to optimise. 
         
+
+            New plan for refactor:
+            Mono checker becomes an abstract function - want it to return co-ords of the monos
+            Generate board
+            Run mono checker function
+            (Update score)
+            Zero out monos function
+            Gravity
+            Implement moves - looking like it will be a couple of nested for loops
+            run mono checker function again to see if the list changes
+            Revert the move in order to not change board - while still looking for other monos - this is how we will get the data
+
+
+            Theory to look at: 
+            Ehrenfest model - Markov Chains

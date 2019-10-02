@@ -4,15 +4,15 @@ from pprint import pprint
 
 x = 8 #board size
 y = 8
-c=4 #number of colours in the game, easier to see monos if lower
+c=4 #number of colours in the game, easier to see the monos if this value is lower
 
 score = 0
-s=x-2 # updated from being hard coded
+s=x-2   # this is causing a bit of a bug with the last column - need to look into this
 def Gameboard(x, y):
     board = [[random.randint(1, c) for i in range(x)] for j in range(y)]         
     pprint(board) 
 
-    for i in range(0,s):                         #note that here it does the rows first before it goes through the columns, only relevant when noticing T shape monos
+    for i in range(0,s):                  #note that here it does the rows first before it goes through the columns, only relevant when noticing T shape monos
         for j in range(0,s):
             if board[i][j] == board[i][j+1] and board[i][j+1] == board[i][j+2]:
                 board[i][j] = 0
@@ -47,4 +47,5 @@ def Gameboard(x, y):
 
     pprint(board)
     # this works nicely up to this point - the next step is to work out how to test a 'move'
+    # function for 
 Gameboard(x,y)
