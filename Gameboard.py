@@ -32,7 +32,7 @@ def Gameboard(x, y):
                 #plist2[j] = plist2 + position2
                 
          
-    print 'the horizontal monos are here: ', plist, 'and the vertical monos are here: ', plist2
+    print 'the horizontal monos are here (row number and horizontal position): ', plist, 'and the vertical monos are here (column number and vertical position): ', plist2
     print "Has anything changed?"  # just printing to see if it works - will delete later
     pprint(board)
 
