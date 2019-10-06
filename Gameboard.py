@@ -59,30 +59,7 @@ def BoardGravity():
 
     
 def Gameboard(x, y):
-    # maybe have a board generating function running first, then a Monochecker, then a zero remover, then actually begin the game
-    #plist = {} #this is now a dictionary
-    #plist2 = {}
-   # for i in range(0,s+1):                  #note that here it does the rows first before it goes through the columns, only relevant when noticing T shape monos
-        #for j in range(0,s):
-           # if board[i][j] == board[i][j+1] and board[i][j+1] == board[i][j+2]:
-                #board[i][j] = 0
-                #board[i][j+1] = 0
-                #board[i][j+2] = 0
-               # plist[i] = [j, j+1, j+2]
-                
-            
-    #for j in range(0,s+1):
-        #for i in range(0,s):
-          #  if board[i][j] == board[i+1][j] and board[i+1][j] == board[i+2][j]:
-                #board[i][j] = 0
-                #board[i+1][j] = 0
-                #board[i+2][j] = 0
-               # plist2[j] = [i, i+1, i+2]
-                #plist2[j] = plist2 + position2
-                
-         
-   #print 'the horizontal monos are here (row number and horizontal position): ', plist, 'and the vertical monos are here (column number and vertical position): ', plist2
-   # print "Has anything changed?"  # just printing to see if it works - will delete later
+   
     Monochecker()
     ZeroMonos()
     pprint(board)
@@ -95,26 +72,6 @@ def Gameboard(x, y):
 
     pprint(board)
     
-Gameboard(x,y)
+Gameboard(x,y)   #need to work out a way to loop this to get rid of chain reactions
 
 # Now we need to start thinking about how to generate moves etc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def locationfinder():
-    for i in range(0, x):
-        location = [idx for idx, n in enumerate(board[i]) if n == 0]
-        print "Indicies: " + str(location)
