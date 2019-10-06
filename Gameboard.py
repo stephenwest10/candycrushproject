@@ -11,6 +11,7 @@ s=x-2   # this is causing a bit of a bug with the last column - need to look int
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]     
 plist = {} #this is now a dictionary
 plist2 = {}    
+chain = 0
 pprint(board) 
 def Monochecker():
 
@@ -25,7 +26,10 @@ def Monochecker():
             if board[i][j] == board[i+1][j] and board[i+1][j] == board[i+2][j]:
                 plist2[j] = [i, i+1, i+2]
                 
-                
+    if plist == {} and plist2 == {}:
+        print "No more monos to be found"   
+        global chain
+        chain += 1         
     print 'the horizontal monos are here (row number and horizontal position): ', plist, 'and the vertical monos are here (column number and vertical position): ', plist2
 
 def ZeroMonos():
@@ -56,10 +60,10 @@ def BoardGravity():
         extras = [random.randint(1, c) for k in range(f)]
         print extras #just to give a visual on what is happening
         board[i] = board[i] + extras
-
     
 def Gameboard(x, y):
-   
+    plist.clear() #reset this variable for when it loops - otherwise you delete non monos
+    plist2.clear()
     Monochecker()
     ZeroMonos()
     pprint(board)
@@ -69,9 +73,14 @@ def Gameboard(x, y):
     pprint(board)
 
     BoardGravity()
-
+    
     pprint(board)
     
-Gameboard(x,y)   #need to work out a way to loop this to get rid of chain reactions
+Gameboard(x,y)
+
+# The loop to deal with chain reactions - for now
+while chain < 1:
+    Gameboard(x,y)
+    
 
 # Now we need to start thinking about how to generate moves etc
