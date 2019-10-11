@@ -10,7 +10,11 @@ score = 0
 s=x-2   # this is causing a bit of a bug with the last column - need to look into this
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]     
 plist = {} #this is now a dictionary
-plist2 = {}    
+plist2 = {} 
+mlist = {}
+mlist2 = {}
+mlist3 = {}
+mlist4 = {}   
 chain = 0
 pprint(board) 
 def Monochecker():
@@ -60,6 +64,34 @@ def BoardGravity():
         extras = [random.randint(1, c) for k in range(f)]
         print extras #just to give a visual on what is happening
         board[i] = board[i] + extras
+
+def MoveChecker():
+    # check horizontally and vertically, and then print in to a list to start with
+        for i in range(0,x):                
+            for j in range(0,s):
+                try: 
+                    if board[i][j] == board[i][j+1] and board[i][j+1] == board[i][j+3]:
+                        mlist[i] = [j+2, j+3]
+                except:
+                    print "Unsure what is happening"
+                try:
+                    if board[i][j] == board[i][j+2] and board[i][j+2] == board[i][j+3]:
+                        mlist2[i] = [j, j+1]
+                except: 
+                    print 'out of range?'
+        for j in range(0,x):                
+            for i in range(0,s):
+                try:
+                    if board[i][j] == board[i+1][j] and board[i+2][j] == board[i+3][j]:
+                        mlist3[j] = [i+2, i+3]
+                except:
+                    print 'out of range vertical'
+                try: 
+                    if board[i][j] == board[i+2][j] and board[i+2][j] == board[i+3][j]:
+                        mlist4[j] = [i, i+1]
+                except:
+                    print 'out of range vertical?'
+        print 'the horizontal moves to be made are here: ', mlist, " and here:", mlist2, 'and the vertical moves are here: ', mlist3, 'and here: ', mlist4
     
 def Gameboard(x, y):
     plist.clear() #reset this variable for when it loops - otherwise you delete non monos
@@ -75,12 +107,17 @@ def Gameboard(x, y):
     BoardGravity()
     
     pprint(board)
+
+
     
 Gameboard(x,y)
-
-# The loop to deal with chain reactions - for now
-while chain < 1:
+# The loop to deal with chain reactions - for now - need to reconsider when add moves
+while chain < 1: 
     Gameboard(x,y)
+
+MoveChecker()
+
+
+
     
 
-# Now we need to start thinking about how to generate moves etc
