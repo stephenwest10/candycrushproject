@@ -73,24 +73,24 @@ def MoveChecker():
                     if board[i][j] == board[i][j+1] and board[i][j+1] == board[i][j+3]:
                         mlist[i] = [j+2, j+3]
                 except:
-                    print "Unsure what is happening"
+                    a=1    # need to read up documentation on try and except - basically we risk that we evaluate values out of range
                 try:
                     if board[i][j] == board[i][j+2] and board[i][j+2] == board[i][j+3]:
                         mlist2[i] = [j, j+1]
                 except: 
-                    print 'out of range?'
+                    a=1
         for j in range(0,x):                
             for i in range(0,s):
                 try:
                     if board[i][j] == board[i+1][j] and board[i+2][j] == board[i+3][j]:
                         mlist3[j] = [i+2, i+3]
                 except:
-                    print 'out of range vertical'
+                    a=1
                 try: 
                     if board[i][j] == board[i+2][j] and board[i+2][j] == board[i+3][j]:
                         mlist4[j] = [i, i+1]
                 except:
-                    print 'out of range vertical?'
+                    a=1
         print 'the horizontal moves to be made are here: ', mlist, " and here:", mlist2, 'and the vertical moves are here: ', mlist3, 'and here: ', mlist4
     
 def Gameboard(x, y):
@@ -115,8 +115,10 @@ Gameboard(x,y)
 while chain < 1: 
     Gameboard(x,y)
 
-MoveChecker()
+MoveChecker()   # horizontal works wonderfully, need to look at how vertical prints out values
 
+# horizontal checking works perfectly, need to think of a way to precisely locate verticals
+# issue with reporting vertical moves which require a change of column
 
 
     
