@@ -7,15 +7,15 @@ y = 8
 c=4 #number of colours in the game, easier to see the monos if this value is lower
 
 score = 0
-s=x-2   # this is causing a bit of a bug with the last column - need to look into this
+s=x-2  
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]     
-plist = {} #this is now a dictionary
+plist = {} #this is now a dictionary - thought was that it would be useful to find exactly where each mono was in a column/row
 plist2 = {} 
 mlist = {}
 mlist2 = {}
 mlist3 = {}
 mlist4 = {}   
-chain = 0
+chain = 0  # my intial thoughts into the chain reaction
 pprint(board) 
 def Monochecker():
 
@@ -78,7 +78,7 @@ def MoveChecker():
                     if board[i][j] == board[i][j+2] and board[i][j+2] == board[i][j+3]:
                         mlist2[i] = [j, j+1]
                 except: 
-                    a=1
+                    a=1 # some dummy variable for now - just until I can think of something to put there
         for j in range(0,x):                
             for i in range(0,s):
                 try:
@@ -88,11 +88,21 @@ def MoveChecker():
                     a=1
                 try: 
                     if board[i][j] == board[i+2][j] and board[i+2][j] == board[i+3][j]:
-                        mlist4[j] = [i, i+1]
+                        mlist4[j] = [i, i+1]  # needs more thought
                 except:
                     a=1
-        print 'the horizontal moves to be made are here: ', mlist, " and here:", mlist2, 'and the vertical moves are here: ', mlist3, 'and here: ', mlist4
-    
+        print 'the horizontal moves to be made are here (row: [position to swap]): ', mlist, " and here:", mlist2, 'and the vertical moves are here (column: [position to swap]): ', mlist3, 'and here: ', mlist4
+
+def HoriMoveMaker():
+    for key in mlist:
+        print "check row: ", mlist.keys()
+        board[key][mlist[key][0]], board[key][mlist[key][1]] = board[key][mlist[key][1]], board[key][mlist[key][0]]
+        pprint(board)
+    for key in mlist2:
+        print "check row: ", mlist2.keys()
+        board[key][mlist2[key][0]], board[key][mlist2[key][1]] = board[key][mlist2[key][1]], board[key][mlist2[key][0]]
+        pprint(board)
+
 def Gameboard(x, y):
     plist.clear() #reset this variable for when it loops - otherwise you delete non monos
     plist2.clear()
@@ -115,11 +125,22 @@ Gameboard(x,y)
 while chain < 1: 
     Gameboard(x,y)
 
-MoveChecker()   # horizontal works wonderfully, need to look at how vertical prints out values
+MoveChecker()
+
+HoriMoveMaker()
+
+
+
+
+   # horizontal works wonderfully, need to look at how vertical prints out values
 
 # horizontal checking works perfectly, need to think of a way to precisely locate verticals
-# issue with reporting vertical moves which require a change of column
+# issue with reporting vertical moves which require a change of column - this may be a pain later
 
 
+# Next steps - I guess write the function to implement moves - although unsure on which order to select the moves
+#Will start with just conducting all available moves and consider strategy later
+
+    
     
 
