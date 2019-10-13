@@ -95,11 +95,11 @@ def MoveChecker():
 
 def HoriMoveMaker():
     for key in mlist:
-        print "check row: ", mlist.keys()
+        print "check row(s): ", mlist.keys()
         board[key][mlist[key][0]], board[key][mlist[key][1]] = board[key][mlist[key][1]], board[key][mlist[key][0]]
         pprint(board)
     for key in mlist2:
-        print "check row: ", mlist2.keys()
+        print "check row(s): ", mlist2.keys()
         board[key][mlist2[key][0]], board[key][mlist2[key][1]] = board[key][mlist2[key][1]], board[key][mlist2[key][0]]
         pprint(board)
 
@@ -115,7 +115,7 @@ def Gameboard(x, y):
     pprint(board)
 
     BoardGravity()
-    print "this next board should be reset:"
+    print "this next board should be reset (unless chain reaction)"
     pprint(board)
 
 
@@ -138,15 +138,12 @@ while chain < 1:
 
 
 
-   # horizontal works wonderfully, need to look at how vertical prints out values
-
 # horizontal checking works perfectly, need to think of a way to precisely locate verticals
 # issue with reporting vertical moves which require a change of column - this may be a pain later
 
 
-# Next steps - I guess write the function to implement moves - although unsure on which order to select the moves
-#Will start with just conducting all available moves and consider strategy later
+# have built a function which makes all the horizontal moves for now, but need to put more thought into vertical
 
-    
+# still have the situation that it only removes mono runs of 3 and unsure what to do if it is a 4
     
 
