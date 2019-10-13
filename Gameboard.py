@@ -54,7 +54,7 @@ def ZeroRemover():
         for i in range(x):  # maybe this x value needs to change at some point
             indicies = [idx for idx, n in enumerate(board[i]) if n == 0]
             indicies.reverse() # work backwards from the end
-            print "Indicies: " + str(indicies)
+            #print "Indicies: " + str(indicies)
             for idx in indicies:
                 board[i].pop(idx)
 
@@ -62,7 +62,7 @@ def BoardGravity():
     for i in range(0, x):
         f = x - len(board[i])
         extras = [random.randint(1, c) for k in range(f)]
-        print extras #just to give a visual on what is happening
+        #print extras #just to give a visual on what is happening
         board[i] = board[i] + extras
 
 def MoveChecker():
@@ -111,11 +111,11 @@ def Gameboard(x, y):
     pprint(board)
       
     ZeroRemover()       
-    print "Has anything changed?"  # the 0s should have been removed here
+    print "Zeroes removed"  # the 0s should have been removed here
     pprint(board)
 
     BoardGravity()
-    
+    print "this next board should be reset:"
     pprint(board)
 
 
@@ -128,6 +128,12 @@ while chain < 1:
 MoveChecker()
 
 HoriMoveMaker()
+chain = 0  # really need to think of a better way to do this - come back later
+Gameboard(x,y)
+
+while chain < 1: 
+    Gameboard(x,y)
+
 
 
 
