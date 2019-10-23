@@ -17,13 +17,13 @@ def HoriMonoList(b):    #This should print out the horizontal monos on the board
         while position < x-1:
             initcol = b[i][position]
             streak = 1 
-            
+
             while position + streak < x and b[i][position+streak] == initcol:
                 streak += 1
                 if streak >= 3:
                     newmonopositions = [i, position]
                     Hori.append(newmonopositions)
-            position += streak    #the positioning of this statement is where the error is
+            position += streak   # need to work on the reporting of the monos - eg for a mono of 6 it will print the position 4 times as the length is 3, 4, 5, 6
         
                 
 
