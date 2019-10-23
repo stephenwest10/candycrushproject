@@ -11,7 +11,7 @@ s=x-2
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]     
 plist = {} #this is now a dictionary - thought was that it would be useful to find exactly where each mono was in a column/row
 plist2 = {} 
-mlist = {}
+mlist = {}      #massive issue here is that I have too many globals
 mlist2 = {}
 mlist3 = {}
 mlist4 = {}   
@@ -35,6 +35,22 @@ def Monochecker():
         global chain
         chain += 1         
     print 'the horizontal monos are here (row number and horizontal position): ', plist, 'and the vertical monos are here (column number and vertical position): ', plist2
+def HoriMonoList(b):
+    Hori = []
+    for i in range(0,x):
+        position = 0
+        while position < x:
+            initcol = b[i][position]
+            streak = 0 
+            while b[i][position + streak] == initcol and position + streak <= x:
+                streak += 1
+                if streak >= 3:
+                    for j in range(streak + 1):
+                        newmonopositions = [(i, j)] 
+                    Hori.append(newmonopositions)
+                    position += streak
+    print Hori
+
 
 def ZeroMonos():
 
@@ -104,35 +120,36 @@ def HoriMoveMaker():
         pprint(board)
 
 def Gameboard(x, y):
-    plist.clear() #reset this variable for when it loops - otherwise you delete non monos
-    plist2.clear()
-    Monochecker()
-    ZeroMonos()
-    pprint(board)
+    #plist.clear() #reset this variable for when it loops - otherwise you delete non monos
+    #plist2.clear()
+    #Monochecker()
+    HoriMonoList(board)
+    #ZeroMonos()
+    #pprint(board)
       
-    ZeroRemover()       
-    print "Zeroes removed"  # the 0s should have been removed here
-    pprint(board)
+    #ZeroRemover()       
+    #print "Zeroes removed"  # the 0s should have been removed here
+    #pprint(board)
 
-    BoardGravity()
-    print "this next board should be reset (unless chain reaction)"
-    pprint(board)
+    #BoardGravity()
+    #print "this next board should be reset (unless chain reaction)"
+    #pprint(board)
 
 
     
 Gameboard(x,y)
 # The loop to deal with chain reactions - for now - need to reconsider when add moves
-while chain < 1: 
-    Gameboard(x,y)
+#while chain < 1: 
+    #Gameboard(x,y)
 
-MoveChecker()
+#MoveChecker()
 
-HoriMoveMaker()
-chain = 0  # really need to think of a better way to do this - come back later
-Gameboard(x,y)
+#HoriMoveMaker()
+#chain = 0  # really need to think of a better way to do this - come back later
+#Gameboard(x,y)
 
-while chain < 1: 
-    Gameboard(x,y)
+#while chain < 1: 
+#    Gameboard(x,y)
 
 
 
