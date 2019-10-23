@@ -24,6 +24,9 @@ def HoriMonoList(b):    #This should print out the horizontal monos on the board
                     newmonopositions = [i, position]
                     Hori.append(newmonopositions)
             position += streak   # need to work on the reporting of the monos - eg for a mono of 6 it will print the position 4 times as the length is 3, 4, 5, 6
+
+            #need to do the same for veritcal and copy in the zero remover etc
+            #need to do the move checker and then check if the move is valid and creates more monos
         
                 
 
