@@ -3,7 +3,7 @@ from pprint import pprint
 
 x = 8 #board size
 y = 8
-c=4
+c=8
 
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]   
 pprint(board)
@@ -46,7 +46,7 @@ def VertMonoList(b):    #This should print out the horizontal monos on the board
                 streak += 1
                 if streak >= 3:
                     for a in range(0, streak):
-                        newmonopositions = [position+a, j]  #for monos greater than 3 it repeats the positons again, okay for now but probably should work out a fix
+                        newmonopositions = [position+a, j]  #for monos greater than 3 it repeats the positons again, its fine as it just zeroes the value twice, only a problem if one wanted to print out the list of monos
                         Vert.append(newmonopositions)
             position += streak 
     #print "Vertical Monos: ", Vert
@@ -83,7 +83,7 @@ def ValidVertMoveList(b):        #to be called on a clean board
         for j in range(0, y):
             swap1 = b[i][j]
             swap2 = b[i+1][j]
-            b[i][j] = swap2     #this is a horizontal move - probably a better way
+            b[i][j] = swap2    
             b[i+1][j] = swap1
             if len(HoriMonoList(b)+VertMonoList(b)) > 0:
                 new_move = [i, j], [i+1, j]
@@ -101,7 +101,7 @@ def ValidHoriMoveList(b):        #to be called on a clean board
         for j in range(0, y-1):
             swap1 = b[i][j]
             swap2 = b[i][j+1]
-            b[i][j] = swap2     #this is a horizontal move - probably a better way
+            b[i][j] = swap2    
             b[i][j+1] = swap1
             if len(HoriMonoList(b)+VertMonoList(b)) > 0:
                 new_move = [i, j], [i, j+1]
@@ -118,8 +118,8 @@ def CleanGameboard():
     print "Zeroes should go"
     ZeroRemover(board)
     print "Gravity should occur and board should reset"
-    BoardGravity(board)  # need to loop this or like at least run mono checker
-    if len(HoriMonoList(board)+VertMonoList(board)) > 0:
+    BoardGravity(board) 
+    if len(HoriMonoList(board)+VertMonoList(board)) > 0:  #to catch chain reaction monos
         CleanGameboard()
     
 CleanGameboard()
@@ -127,4 +127,8 @@ CleanGameboard()
 ValidVertMoveList(board)
 ValidHoriMoveList(board)
 
+
+# next steps - which move to implement? 
+# Build some form of turn counter etc to model the number of turns left in the game to compare to ehrenfest etc
+# I suppose strategies would be to pick the ones with the lowest x,y co-ords to get a move near the top of our board
 
