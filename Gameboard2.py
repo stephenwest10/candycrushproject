@@ -25,7 +25,7 @@ def HoriMonoList(b):    #This should print out the horizontal monos on the board
                         newmonopositions = [i, position+a]  #for monos greater than 3 it repeats the positons again, okay for now but probably should work out a fix
                         Hori.append(newmonopositions)
             position += streak   # need to work on the reporting of the monos - eg for a mono of 6 it will print the position 4 times as the length is 3, 4, 5, 6
-    print "Horizontal Monos: ", Hori
+    #print "Horizontal Monos: ", Hori
     return Hori
     
             
@@ -49,7 +49,7 @@ def VertMonoList(b):    #This should print out the horizontal monos on the board
                         newmonopositions = [position+a, j]  #for monos greater than 3 it repeats the positons again, okay for now but probably should work out a fix
                         Vert.append(newmonopositions)
             position += streak 
-    print "Vertical Monos: ", Vert
+    #print "Vertical Monos: ", Vert
     return Vert
     
 
@@ -77,20 +77,41 @@ def BoardGravity(b):
 
 
 
-#def ValidMoveList(b, m):        #this is for a board with no monos - come back later
- #   m = HoriMonoList(b) + VertMonoList(b)
- #   for i in range(0, x):
-  ##      for j in range(0, y):
-  #          swap1 = b[i][j]
-   #         swap2 = b[i+1][j]
-   #         b[i][j] = swap2     #this is a horizontal move - probably a better way
-    #        b[i+1][j] = swap1
-     #       New_M = 
+def ValidVertMoveList(b):        #to be called on a clean board
+    ValidVertMoves = []
+    for i in range(0, x-1):
+        for j in range(0, y):
+            swap1 = b[i][j]
+            swap2 = b[i+1][j]
+            b[i][j] = swap2     #this is a horizontal move - probably a better way
+            b[i+1][j] = swap1
+            if len(HoriMonoList(b)+VertMonoList(b)) > 0:
+                new_move = [i, j], [i+1, j]
+                ValidVertMoves.append(new_move)
+            b[i][j] = swap1      #reverting the move
+            b[i+1][j] = swap2
+    pprint(b)
+    print "possible vertical moves:", ValidVertMoves
+    print "number of vertical moves:", len(ValidVertMoves)
+    return ValidVertMoves
 
-
-
-#HoriMonoList(board)
-#VertMonoList(board)
+def ValidHoriMoveList(b):        #to be called on a clean board
+    ValidHoriMoves = []
+    for i in range(0, x):
+        for j in range(0, y-1):
+            swap1 = b[i][j]
+            swap2 = b[i][j+1]
+            b[i][j] = swap2     #this is a horizontal move - probably a better way
+            b[i][j+1] = swap1
+            if len(HoriMonoList(b)+VertMonoList(b)) > 0:
+                new_move = [i, j], [i, j+1]
+                ValidHoriMoves.append(new_move)
+            b[i][j] = swap1      #reverting the move
+            b[i][j+1] = swap2
+    pprint(b)
+    print "possible horizontal moves:", ValidHoriMoves
+    print "number of horizontal moves:", len(ValidHoriMoves)
+    return ValidHoriMoves
 
 def CleanGameboard():
     MonoZero(board, HoriMonoList(board), VertMonoList(board))
@@ -102,5 +123,8 @@ def CleanGameboard():
         CleanGameboard()
     
 CleanGameboard()
+
+ValidVertMoveList(board)
+ValidHoriMoveList(board)
 
 
