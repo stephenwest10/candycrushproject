@@ -91,8 +91,16 @@ def BoardGravity(b):
 
 #HoriMonoList(board)
 #VertMonoList(board)
-MonoZero(board, HoriMonoList(board), VertMonoList(board))
-print "Zeroes should go"
-ZeroRemover(board)
-print "Gravity should occur and board should reset"
-BoardGravity(board)
+
+def CleanGameboard():
+    MonoZero(board, HoriMonoList(board), VertMonoList(board))
+    print "Zeroes should go"
+    ZeroRemover(board)
+    print "Gravity should occur and board should reset"
+    BoardGravity(board)  # need to loop this or like at least run mono checker
+    if len(HoriMonoList(board)+VertMonoList(board)) > 0:
+        CleanGameboard()
+    
+CleanGameboard()
+
+
