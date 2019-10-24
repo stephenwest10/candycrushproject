@@ -29,8 +29,6 @@ def HoriMonoList(b):    #This should print out the horizontal monos on the board
     return Hori
     
             
-            #need to do the same for veritcal and copy in the zero remover etc
-            #need to do the move checker and then check if the move is valid and creates more monos
         
 def VertMonoList(b):    #This should print out the horizontal monos on the board 
     Vert = []
@@ -86,7 +84,7 @@ def ValidVertMoveList(b):        #to be called on a clean board
             b[i][j] = swap2    
             b[i+1][j] = swap1
             if len(HoriMonoList(b)+VertMonoList(b)) > 0:
-                new_move = [i, j], [i+1, j]
+                new_move = [[i, j], [i+1, j]]
                 ValidVertMoves.append(new_move)
             b[i][j] = swap1      #reverting the move
             b[i+1][j] = swap2
@@ -104,7 +102,7 @@ def ValidHoriMoveList(b):        #to be called on a clean board
             b[i][j] = swap2    
             b[i][j+1] = swap1
             if len(HoriMonoList(b)+VertMonoList(b)) > 0:
-                new_move = [i, j], [i, j+1]
+                new_move = [[i, j], [i, j+1]]
                 ValidHoriMoves.append(new_move)
             b[i][j] = swap1      #reverting the move
             b[i][j+1] = swap2
@@ -112,6 +110,15 @@ def ValidHoriMoveList(b):        #to be called on a clean board
     print "possible horizontal moves:", ValidHoriMoves
     print "number of horizontal moves:", len(ValidHoriMoves)
     return ValidHoriMoves
+
+'''def BasicStrat(b, m):
+   #this strategy would just use the 0th move in the total list each time, stick to just horizontal moves for now
+    swap1 = b[m[0][0][0]][m[0][0][1]]   # a bug here - need to look more closely
+    swap2 = b[m[0][1][0]][m[0][1][1]]
+    b[m[0][0][0]][m[0][0][1]] = swap2
+    b[m[0][1][0]][m[0][1][1]] = swap1     #this is kinda annoying as we now have a list of lists of lists hence all the indices
+
+    return b'''
 
 def CleanGameboard():
     MonoZero(board, HoriMonoList(board), VertMonoList(board))
@@ -127,6 +134,8 @@ CleanGameboard()
 ValidVertMoveList(board)
 ValidHoriMoveList(board)
 
+#BasicStrat(board, ValidHoriMoveList)
+#CleanGameboard()
 
 # next steps - which move to implement? 
 # Build some form of turn counter etc to model the number of turns left in the game to compare to ehrenfest etc
