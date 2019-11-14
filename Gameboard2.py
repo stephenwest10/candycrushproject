@@ -140,4 +140,6 @@ ValidHoriMoveList(board)
 # next steps - which move to implement? 
 # Build some form of turn counter etc to model the number of turns left in the game to compare to ehrenfest etc
 # I suppose strategies would be to pick the ones with the lowest x,y co-ords to get a move near the top of our board
-
+# need to get a distribution for turn lengths etc
+# need a move implementer and then the distribution for turn lengths
+# Need to write up some stuff on Markov chains etc
