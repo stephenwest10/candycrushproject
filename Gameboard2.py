@@ -8,7 +8,7 @@ c=8
 board = [[random.randint(1, c) for i in range(x)] for j in range(y)]   
 pprint(board)
 
-def HoriMonoList(b):    #This should print out the horizontal monos on the board 
+def HoriMonoList(b):     
     Hori = []
     for i in range(0,x):
         position = 0
@@ -30,7 +30,7 @@ def HoriMonoList(b):    #This should print out the horizontal monos on the board
     
             
         
-def VertMonoList(b):    #This should print out the horizontal monos on the board 
+def VertMonoList(b):    
     Vert = []
     for j in range(0,y):
         position = 0
@@ -109,32 +109,40 @@ def ValidHoriMoveList(b):        #to be called on a clean board
     pprint(b)
     print "possible horizontal moves:", ValidHoriMoves
     print "number of horizontal moves:", len(ValidHoriMoves)
+
     return ValidHoriMoves
 
-'''def BasicStrat(b, m):
+def BasicStrat(b, m):
    #this strategy would just use the 0th move in the total list each time, stick to just horizontal moves for now
-    swap1 = b[m[0][0][0]][m[0][0][1]]   # a bug here - need to look more closely
+    swap1 = b[m[0][0][0]][m[0][0][1]]   # not working, idk why!!!!
     swap2 = b[m[0][1][0]][m[0][1][1]]
     b[m[0][0][0]][m[0][0][1]] = swap2
-    b[m[0][1][0]][m[0][1][1]] = swap1     #this is kinda annoying as we now have a list of lists of lists hence all the indices
-
-    return b'''
+    b[m[0][1][0]][m[0][1][1]] = swap1     #list of lists of lists hence all the indices - will be an easier way
+    pprint(b)
+    return b
 
 def CleanGameboard():
     MonoZero(board, HoriMonoList(board), VertMonoList(board))
     print "Zeroes should go"
     ZeroRemover(board)
     print "Gravity should occur and board should reset"
-    BoardGravity(board) 
+    BoardGravity(board)
+    ValidVertMoveList(board)
+    ValidHoriMoveList(board) 
     if len(HoriMonoList(board)+VertMonoList(board)) > 0:  #to catch chain reaction monos
         CleanGameboard()
     
 CleanGameboard()
 
-ValidVertMoveList(board)
-ValidHoriMoveList(board)
 
-#BasicStrat(board, ValidHoriMoveList)
+gamelength = 0
+BasicStrat(board, ValidHoriMoveList(board))
+while len(ValidHoriMoveList(board)) > 0:
+    BasicStrat(board, ValidHoriMoveList(board))
+    gamelength += 1
+    CleanGameboard()
+print "Length", gamelength
+#BasicStrat(board, ValidHoriMoveList(board))
 #CleanGameboard()
 
 # next steps - which move to implement? 
@@ -143,3 +151,5 @@ ValidHoriMoveList(board)
 # need to get a distribution for turn lengths etc
 # need a move implementer and then the distribution for turn lengths
 # Need to write up some stuff on Markov chains etc
+
+#things to ask Dr Towers - need to set it up in a way in order to get data, do i put it in a while loop and increment each time?
