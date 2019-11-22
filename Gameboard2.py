@@ -1,4 +1,5 @@
 import random, math
+import matplotlib.pyplot as plt
 from pprint import pprint
 
 x = 8 #board size
@@ -132,24 +133,39 @@ def CleanGameboard():
     if len(HoriMonoList(board)+VertMonoList(board)) > 0:  #to catch chain reaction monos
         CleanGameboard()
     
-CleanGameboard()
+listoflengths = []
+num = 0
+while num < 10:       # really really really need to put this in a class
+    x = 8 #board size
+    y = 8
+    c=8
 
-
-gamelength = 0
-BasicStrat(board, ValidHoriMoveList(board))
-while len(ValidHoriMoveList(board)) > 0:
-    BasicStrat(board, ValidHoriMoveList(board))
-    gamelength += 1
+    board = [[random.randint(1, c) for i in range(x)] for j in range(y)]   
+    pprint(board)
     CleanGameboard()
-print "Length", gamelength
-#BasicStrat(board, ValidHoriMoveList(board))
-#CleanGameboard()
 
-# next steps - which move to implement? 
-# Build some form of turn counter etc to model the number of turns left in the game to compare to ehrenfest etc
-# I suppose strategies would be to pick the ones with the lowest x,y co-ords to get a move near the top of our board
+    gamelength = 0        # this needs cleaning up, and putting into functions, it also doesn't implement any vertical moves right now
+    while len(ValidHoriMoveList(board)) > 0:
+        BasicStrat(board, ValidHoriMoveList(board))
+        gamelength += 1
+        CleanGameboard()
+        
+    print "Length", gamelength
+    listoflengths.append(gamelength)
+    num += 1
+print listoflengths
+
+plt.hist(listoflengths) 
+plt.axis([0, 20, 0, 3]) 
+#axis([xmin,xmax,ymin,ymax])
+plt.xlabel('Game Length')
+plt.ylabel('Frequency')
+plt.show()
+
+# To do
+# Collect data in a list then work out how to plot this 
+# perhaps we can compare this data to the ehrenfest model
+# Work out how to implement more strategies, maybe start with vertical
 # need to get a distribution for turn lengths etc
 # need a move implementer and then the distribution for turn lengths
 # Need to write up some stuff on Markov chains etc
-
-#things to ask Dr Towers - need to set it up in a way in order to get data, do i put it in a while loop and increment each time?
