@@ -45,10 +45,9 @@ def VertMonoList(b):
                 streak += 1
                 if streak >= 3:
                     for a in range(0, streak):
-                        newmonopositions = [position+a, j]  #for monos greater than 3 it repeats the positons again, its fine as it just zeroes the value twice, only a problem if one wanted to print out the list of monos
+                        newmonopositions = [position+a, j] 
                         Vert.append(newmonopositions)
             position += streak 
-    #print "Vertical Monos: ", Vert
     return Vert
     
 
@@ -114,8 +113,8 @@ def ValidHoriMoveList(b):        #to be called on a clean board
     return ValidHoriMoves
 
 def BasicStrat(b, m):
-   #this strategy would just use the 0th move in the total list each time, stick to just horizontal moves for now
-    swap1 = b[m[0][0][0]][m[0][0][1]]   # not working, idk why!!!!
+   #this strategy would just use the 0th move in the total list each time
+    swap1 = b[m[0][0][0]][m[0][0][1]]   
     swap2 = b[m[0][1][0]][m[0][1][1]]
     b[m[0][0][0]][m[0][0][1]] = swap2
     b[m[0][1][0]][m[0][1][1]] = swap1     #list of lists of lists hence all the indices - will be an easier way
@@ -128,8 +127,6 @@ def CleanGameboard():
     ZeroRemover(board)
     print "Gravity should occur and board should reset"
     BoardGravity(board)
-    ValidVertMoveList(board)
-    ValidHoriMoveList(board) 
     if len(HoriMonoList(board)+VertMonoList(board)) > 0:  #to catch chain reaction monos
         CleanGameboard()
     
@@ -146,7 +143,7 @@ while num < 5:       # really really really need to put this in a class
 
     gamelength = 0        
     while len(ValidHoriMoveList(board)+ValidVertMoveList(board)) > 0:
-        BasicStrat(board, ValidHoriMoveList(board) + ValidVertMoveList(board))
+        BasicStrat(board, ValidHoriMoveList(board)+ValidVertMoveList(board))
         gamelength += 1
         CleanGameboard()
         
@@ -167,6 +164,7 @@ plt.show()
 # To do
 
 # clean this up - need to put it in a class - OOP
+# could speed up execution further down the line by putting stuff in the same for loop
 # try and get a distribution of the lengths - just need to run for a long time
 # perhaps we can compare this data to the ehrenfest model - need to ask
 # need a move implementer and then the distribution for turn lengths
