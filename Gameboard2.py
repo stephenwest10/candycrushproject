@@ -135,7 +135,7 @@ def CleanGameboard():
     
 listoflengths = []
 num = 0
-while num < 10:       # really really really need to put this in a class
+while num < 5:       # really really really need to put this in a class
     x = 8 #board size
     y = 8
     c=8
@@ -145,8 +145,8 @@ while num < 10:       # really really really need to put this in a class
     CleanGameboard()
 
     gamelength = 0        # this needs cleaning up, and putting into functions, it also doesn't implement any vertical moves right now
-    while len(ValidHoriMoveList(board)) > 0:
-        BasicStrat(board, ValidHoriMoveList(board))
+    while len(ValidHoriMoveList(board)+ValidVertMoveList(board)) > 0:
+        BasicStrat(board, ValidHoriMoveList(board) + ValidVertMoveList(board))
         gamelength += 1
         CleanGameboard()
         
@@ -156,16 +156,20 @@ while num < 10:       # really really really need to put this in a class
 print listoflengths
 
 plt.hist(listoflengths) 
-plt.axis([0, 20, 0, 3]) 
+plt.axis([0, 50, 0, 10]) 
 #axis([xmin,xmax,ymin,ymax])
 plt.xlabel('Game Length')
-plt.ylabel('Frequency')
+plt.ylabel('Frequency Density')
+plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
 plt.show()
 
 # To do
-# Collect data in a list then work out how to plot this 
-# perhaps we can compare this data to the ehrenfest model
+
+# clean this up and make it do the vertical monos too
+# try and get a distribution of the lengths
+# perhaps we can compare this data to the ehrenfest model - need to ask
 # Work out how to implement more strategies, maybe start with vertical
 # need to get a distribution for turn lengths etc
 # need a move implementer and then the distribution for turn lengths
-# Need to write up some stuff on Markov chains etc
+# Need to write up some stuff on Markov chains simple birth-death process - solving, first step decomposition
+# expected time to absorption - first step simultaneous linear equations, n=3, n=4, n=5, then take more general
