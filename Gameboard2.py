@@ -134,17 +134,17 @@ def CleanGameboard():
         CleanGameboard()
     
 listoflengths = []
-num = 0
+num = 0  # maybe this is okay to have as a global
 while num < 5:       # really really really need to put this in a class
     x = 8 #board size
-    y = 8
+    y = 8   # these need to go into a fucntion or a class or something
     c=8
 
     board = [[random.randint(1, c) for i in range(x)] for j in range(y)]   
     pprint(board)
     CleanGameboard()
 
-    gamelength = 0        # this needs cleaning up, and putting into functions, it also doesn't implement any vertical moves right now
+    gamelength = 0        
     while len(ValidHoriMoveList(board)+ValidVertMoveList(board)) > 0:
         BasicStrat(board, ValidHoriMoveList(board) + ValidVertMoveList(board))
         gamelength += 1
@@ -155,6 +155,7 @@ while num < 5:       # really really really need to put this in a class
     num += 1
 print listoflengths
 
+#this plots the histogram of the lengths
 plt.hist(listoflengths) 
 plt.axis([0, 50, 0, 10]) 
 #axis([xmin,xmax,ymin,ymax])
@@ -165,11 +166,9 @@ plt.show()
 
 # To do
 
-# clean this up and make it do the vertical monos too
-# try and get a distribution of the lengths
+# clean this up - need to put it in a class - OOP
+# try and get a distribution of the lengths - just need to run for a long time
 # perhaps we can compare this data to the ehrenfest model - need to ask
-# Work out how to implement more strategies, maybe start with vertical
-# need to get a distribution for turn lengths etc
 # need a move implementer and then the distribution for turn lengths
 # Need to write up some stuff on Markov chains simple birth-death process - solving, first step decomposition
 # expected time to absorption - first step simultaneous linear equations, n=3, n=4, n=5, then take more general
