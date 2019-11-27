@@ -2,7 +2,7 @@ import random, math
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-ITERATIONS = 50
+ITERATIONS = 100
 
 class Game:
     def __init__(self, width, height, numColors):
@@ -124,12 +124,17 @@ class Game:
 def basicStrat(game):
     return game.getPossibleMoves()[0]
 
+# Use a random move out of the possible moves
+def randomStrat(game):
+    return game.getPossibleMoves()[random.randint(0, len(game.getPossibleMoves())-1)]
+
 gameLengths = []
 
 for i in range(ITERATIONS):
     game = Game(8, 8, 8)
     while not game.gameOver():
-        move = basicStrat(game)
+        #move = basicStrat(game)
+        move = randomStrat(game)
         game.doMove(move)
     gameLengths.append(game.gameLength)
     print "Game", i, "length:", game.gameLength
@@ -138,10 +143,11 @@ print gameLengths
 
 #this plots the histogram of the lengths
 plt.hist(gameLengths) 
-plt.axis([0, 50, 0, 15]) 
+plt.axis([0, 50, 0, 200]) 
 #axis([xmin,xmax,ymin,ymax])
 plt.xlabel('Game Length')
 plt.ylabel('Frequency Density')
-plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
+#plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
+plt.title("Game Lengths when using the random strategy of taking a random move in the list")
 plt.show()
 
