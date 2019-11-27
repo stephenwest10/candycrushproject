@@ -6,26 +6,16 @@ Brief outline of the project:
         c. Reconcatenate each individual list with new randomly generated lists
         d. Develop the idea of moves
         e. Apply moves
-        f. Repeat until no further moves are possible
+        f. Repeat until no further moves are possible - Done
         
-    2. Test different strategies
+    2. Test different strategies - Need to write more, research sorting in order to play nearer the top
     
-    3. Compare data from different strategies
+    3. Compare data from different strategies - different histograms, different means etc
     
-    4. Work out which strategy is best depending on what you're trying to optimise. 
+    4. Work out which strategy is best depending on what you're trying to optimise - longer game length higher score? 
         
+Theory to look at: 
+Ehrenfest model - Markov Chains
+Solving a system of the first n first step equations
+Calculating transition probabilities from each state
 
-            New plan for refactor:
-            Mono checker becomes an abstract function - want it to return co-ords of the monos
-            Generate board
-            Run mono checker function
-            (Update score)
-            Zero out monos function
-            Gravity
-            Implement moves - looking like it will be a couple of nested for loops
-            run mono checker function again to see if the list changes
-            Revert the move in order to not change board - while still looking for other monos - this is how we will get the data
-
-
-            Theory to look at: 
-            Ehrenfest model - Markov Chains
