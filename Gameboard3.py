@@ -2,7 +2,7 @@ import random, math
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-ITERATIONS = 100
+ITERATIONS = 10000
 
 class Game:
     def __init__(self, width, height, numColors):
@@ -143,7 +143,7 @@ print gameLengths
 
 #this plots the histogram of the lengths
 plt.hist(gameLengths) 
-plt.axis([0, 50, 0, 200]) 
+plt.axis([0, 50, 0, 2000]) 
 #axis([xmin,xmax,ymin,ymax])
 plt.xlabel('Game Length')
 plt.ylabel('Frequency Density')
