@@ -2,7 +2,9 @@ import random, math
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-ITERATIONS = 10000
+ITERATIONS = 100
+
+
 
 class Game:
     def __init__(self, width, height, numColors):
@@ -35,7 +37,7 @@ class Game:
 
         if len(self.getMonos()) > 0:
             self.clearBoard()
-
+        #pprint(self.board)  ### to be commented out - just for dev purposes
     def getVerticalMonos(self):
         monos = []
         for y in range(0, self.height):
@@ -108,6 +110,7 @@ class Game:
         return moves
 
     def getPossibleMoves(self):
+        ##print self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves() just to check it was working
         return self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves()
 
     def gameOver(self):
@@ -140,6 +143,16 @@ for i in range(ITERATIONS):
     print "Game", i, "length:", game.gameLength
 
 print gameLengths
+
+#making a frequency table and some quick statistics
+for i in range(max(gameLengths) + 1):
+    print "Number of games with length", i,":", gameLengths.count(i)
+
+print "Highest Game Length:", max(gameLengths)
+print "Lowest Game Length:", min(gameLengths)
+print "Mean Game Length:", round(float(sum(gameLengths))/ITERATIONS, 3)
+print "Total Iterations:", ITERATIONS
+
 
 #this plots the histogram of the lengths
 plt.hist(gameLengths) 
