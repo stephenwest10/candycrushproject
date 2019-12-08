@@ -2,7 +2,7 @@ import random, math
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-ITERATIONS = 100
+ITERATIONS = 10
 
 
 
@@ -40,18 +40,18 @@ class Game:
         #pprint(self.board)  ### to be commented out - just for dev purposes
     def getVerticalMonos(self):
         monos = []
-        for y in range(0, self.height):
+        for y in range(0, self.width):
             x = 0
             
-            while x < self.width - 1:
+            while x < self.height - 1:
                 color = self.board[x][y]
                 streak = 1 
 
                 while x + streak < self.width and self.board[x + streak][y] == color:
                     streak += 1
-                    if streak >= 3:
-                        for i in range(0, streak):
-                            monos.append([x + i, y])
+                if streak >= 3:
+                    for i in range(0, streak):
+                        monos.append([x + i, y])
                 x += streak 
         return monos
 
@@ -101,7 +101,7 @@ class Game:
                 self.board[x][y + 1] = swap1
                 
                 if len(self.getMonos()) > 0:
-                    new_move = [[x, y], [x, y + 1]]
+                    moves.append([[x, y], [x, y + 1]])
 
                 # Revert the move
                 self.board[x][y] = swap1
@@ -135,12 +135,16 @@ gameLengths = []
 
 for i in range(ITERATIONS):
     game = Game(8, 8, 8)
+    numMovesAvailable = []
     while not game.gameOver():
-        #move = basicStrat(game)
-        move = randomStrat(game)
+        move = basicStrat(game)
+        #move = randomStrat(game)
         game.doMove(move)
+        numMovesAvailable.append(len(game.getPossibleMoves()))
     gameLengths.append(game.gameLength)
     print "Game", i, "length:", game.gameLength
+    print "Chain of available moves in Game", i, numMovesAvailable 
+
 
 print gameLengths
 
@@ -160,7 +164,7 @@ plt.axis([0, 50, 0, 2000])
 #axis([xmin,xmax,ymin,ymax])
 plt.xlabel('Game Length')
 plt.ylabel('Frequency Density')
-#plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
-plt.title("Game Lengths when using the random strategy of taking a random move in the list")
+plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
+#plt.title("Game Lengths when using the random strategy of taking a random move in the list")
 plt.show()
 
