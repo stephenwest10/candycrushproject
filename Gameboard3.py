@@ -2,10 +2,6 @@ import random, math
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-ITERATIONS = 10
-
-
-
 class Game:
     def __init__(self, width, height, numColors):
         self.width = width
@@ -170,4 +166,4 @@ def summaryAndHistPlot(gameLengths):
     #plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-summaryAndHistPlot(playGame(Game, 10)) # This is the number of games played and where to change
+summaryAndHistPlot(playGame(Game, 100)) # This is the number of games played and where to change
