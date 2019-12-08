@@ -1,5 +1,6 @@
-import random, math
+import random, math, scipy
 import matplotlib.pyplot as plt
+import scipy.stats as stat
 from pprint import pprint
 
 class Game:
@@ -128,14 +129,13 @@ def randomStrat(game):
     return game.getPossibleMoves()[random.randint(0, len(game.getPossibleMoves())-1)]
 
 
-def playGame(game, ITERATIONS):   #Iterations is the number of times you play the game
+def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times you play the game
     gameLengths = []
     for i in range(ITERATIONS):
         game = Game(8, 8, 8)
         numMovesAvailable = []
         while not game.gameOver():
-            move = basicStrat(game)     #move selecting happens here
-            #move = randomStrat(game)
+            move = strategy(game)     
             game.doMove(move)
             numMovesAvailable.append(len(game.getPossibleMoves()))
         gameLengths.append(game.gameLength)
@@ -149,7 +149,8 @@ def summaryAndHistPlot(gameLengths):
     #making a frequency table and some quick statistics
     for i in range(max(gameLengths) + 1):
         print "Number of games with length", i,":", gameLengths.count(i)
-
+    print stat.describe(gameLengths)
+    print "Mean Game Length:", round(scipy.mean(gameLengths), 3)
     print "Highest Game Length:", max(gameLengths)
     print "Lowest Game Length:", min(gameLengths)
     #print "Mean Game Length:", round(float(sum(gameLengths))/ITERATIONS, 3)
@@ -166,4 +167,4 @@ def summaryAndHistPlot(gameLengths):
     #plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-summaryAndHistPlot(playGame(Game, 100)) # This is the number of games played and where to change
+summaryAndHistPlot(playGame(Game, 10, basicStrat)) # Enter the number of games and the strategy you want to use
