@@ -34,7 +34,7 @@ class Game:
 
         if len(self.getMonos()) > 0:
             self.clearBoard()
-        #pprint(self.board)  ### to be commented out - just for dev purposes
+
     def getVerticalMonos(self):
         monos = []
         for y in range(0, self.width):
@@ -107,7 +107,6 @@ class Game:
         return moves
 
     def getPossibleMoves(self):
-        ##print self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves() just to check it was working
         return self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves()
 
     def gameOver(self):
@@ -129,7 +128,7 @@ def randomStrat(game):
     return game.getPossibleMoves()[random.randint(0, len(game.getPossibleMoves())-1)]
 
 
-def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times you play the game
+def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times you play the game, inputted at the end
     gameLengths = []
     for i in range(ITERATIONS):
         game = Game(8, 8, 8)
@@ -141,7 +140,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
         gameLengths.append(game.gameLength)
         print "Game", i, "length:", game.gameLength
         print "Chain of available moves in Game", i, numMovesAvailable 
-    print gameLengths
+    print gameLengths # so I can collect the length data if I ever want to reproduce
     return gameLengths
    
 
@@ -153,18 +152,15 @@ def summaryAndHistPlot(gameLengths):
     print "Mean Game Length:", round(scipy.mean(gameLengths), 3)
     print "Highest Game Length:", max(gameLengths)
     print "Lowest Game Length:", min(gameLengths)
-    #print "Mean Game Length:", round(float(sum(gameLengths))/ITERATIONS, 3)
-   # print "Total Iterations:", ITERATIONS - use scipy for these
-
 
     #this plots the histogram of the lengths
     plt.hist(gameLengths) 
-    plt.axis([0, 50, 0, 2000]) 
+    plt.axis([0, 100, 0, 50]) 
     #axis([xmin,xmax,ymin,ymax])
     plt.xlabel('Game Length')
     plt.ylabel('Frequency Density')
-    plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
-    #plt.title("Game Lengths when using the random strategy of taking a random move in the list")
+    #plt.title("Game Lengths when using the basic strategy of taking the first move in the list")  
+    plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-summaryAndHistPlot(playGame(Game, 10, basicStrat)) # Enter the number of games and the strategy you want to use
+summaryAndHistPlot(playGame(Game, 100, randomStrat)) # Enter the number of games and the strategy you want to use
