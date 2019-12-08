@@ -131,40 +131,43 @@ def basicStrat(game):
 def randomStrat(game):
     return game.getPossibleMoves()[random.randint(0, len(game.getPossibleMoves())-1)]
 
-gameLengths = []
 
-for i in range(ITERATIONS):
-    game = Game(8, 8, 8)
-    numMovesAvailable = []
-    while not game.gameOver():
-        move = basicStrat(game)
-        #move = randomStrat(game)
-        game.doMove(move)
-        numMovesAvailable.append(len(game.getPossibleMoves()))
-    gameLengths.append(game.gameLength)
-    print "Game", i, "length:", game.gameLength
-    print "Chain of available moves in Game", i, numMovesAvailable 
+def playGame(game, ITERATIONS):   #Iterations is the number of times you play the game
+    gameLengths = []
+    for i in range(ITERATIONS):
+        game = Game(8, 8, 8)
+        numMovesAvailable = []
+        while not game.gameOver():
+            move = basicStrat(game)     #move selecting happens here
+            #move = randomStrat(game)
+            game.doMove(move)
+            numMovesAvailable.append(len(game.getPossibleMoves()))
+        gameLengths.append(game.gameLength)
+        print "Game", i, "length:", game.gameLength
+        print "Chain of available moves in Game", i, numMovesAvailable 
+    print gameLengths
+    return gameLengths
+   
+
+def summaryAndHistPlot(gameLengths):
+    #making a frequency table and some quick statistics
+    for i in range(max(gameLengths) + 1):
+        print "Number of games with length", i,":", gameLengths.count(i)
+
+    print "Highest Game Length:", max(gameLengths)
+    print "Lowest Game Length:", min(gameLengths)
+    #print "Mean Game Length:", round(float(sum(gameLengths))/ITERATIONS, 3)
+   # print "Total Iterations:", ITERATIONS - use scipy for these
 
 
-print gameLengths
+    #this plots the histogram of the lengths
+    plt.hist(gameLengths) 
+    plt.axis([0, 50, 0, 2000]) 
+    #axis([xmin,xmax,ymin,ymax])
+    plt.xlabel('Game Length')
+    plt.ylabel('Frequency Density')
+    plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
+    #plt.title("Game Lengths when using the random strategy of taking a random move in the list")
+    plt.show()
 
-#making a frequency table and some quick statistics
-for i in range(max(gameLengths) + 1):
-    print "Number of games with length", i,":", gameLengths.count(i)
-
-print "Highest Game Length:", max(gameLengths)
-print "Lowest Game Length:", min(gameLengths)
-print "Mean Game Length:", round(float(sum(gameLengths))/ITERATIONS, 3)
-print "Total Iterations:", ITERATIONS
-
-
-#this plots the histogram of the lengths
-plt.hist(gameLengths) 
-plt.axis([0, 50, 0, 2000]) 
-#axis([xmin,xmax,ymin,ymax])
-plt.xlabel('Game Length')
-plt.ylabel('Frequency Density')
-plt.title("Game Lengths when using the basic strategy of taking the first move in the list")
-#plt.title("Game Lengths when using the random strategy of taking a random move in the list")
-plt.show()
-
+summaryAndHistPlot(playGame(Game, 10)) # This is the number of games played and where to change
