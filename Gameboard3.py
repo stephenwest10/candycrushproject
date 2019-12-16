@@ -2,6 +2,7 @@ import random, math, scipy
 import matplotlib.pyplot as plt
 import scipy.stats as stat
 from pprint import pprint
+from collections import Counter, defaultdict
 
 class Game:
     def __init__(self, width, height, numColors):
@@ -119,7 +120,7 @@ class Game:
         self.clearBoard()
         self.gameLength += 1
     
-# Use the first possible move found
+# Use the first possible move in the list - this also happens to be the move at the 'top left' of the board
 def basicStrat(game):
     return game.getPossibleMoves()[0]
 
@@ -130,6 +131,7 @@ def randomStrat(game):
 
 def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times you play the game, inputted at the end
     gameLengths = []
+    deltaChangeByPosition = defaultdict(list)
     for i in range(ITERATIONS):
         game = Game(8, 8, 8)
         numMovesAvailable = []
@@ -138,21 +140,30 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
             game.doMove(move)
             numMovesAvailable.append(len(game.getPossibleMoves()))
         gameLengths.append(game.gameLength)
+        for a in range(0, len(numMovesAvailable)-1):
+            delta = numMovesAvailable[a+1] - numMovesAvailable[a]
+            deltaChangeByPosition[numMovesAvailable[a]].append(delta)
         print "Game", i, "length:", game.gameLength
-        print "Chain of available moves in Game", i, numMovesAvailable 
+       # print "Chain of available moves in Game", i, numMovesAvailable  
+    print deltaChangeByPosition
+
+        
     print gameLengths # so I can collect the length data if I ever want to reproduce
-    return gameLengths
+    summaryAndHistPlot(gameLengths, deltaChangeByPosition)
+    return gameLengths, deltaChangeByPosition
    
 
-def summaryAndHistPlot(gameLengths):
+def summaryAndHistPlot(gameLengths, deltaChangeByPosition):
     #making a frequency table and some quick statistics
-    for i in range(max(gameLengths) + 1):
-        print "Number of games with length", i,":", gameLengths.count(i)
+    #for i in range(max(gameLengths) + 1):
+    #   print "Number of games with length", i,":", gameLengths.count(i)
     print stat.describe(gameLengths)
     print "Mean Game Length:", round(scipy.mean(gameLengths), 3)
     print "Highest Game Length:", max(gameLengths)
     print "Lowest Game Length:", min(gameLengths)
 
+    for i in deltaChangeByPosition.keys():
+        print i, deltaChangeByPosition[i]
     #this plots the histogram of the lengths
     plt.hist(gameLengths) 
     plt.axis([0, 100, 0, 50]) 
@@ -163,4 +174,4 @@ def summaryAndHistPlot(gameLengths):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-summaryAndHistPlot(playGame(Game, 100, randomStrat)) # Enter the number of games and the strategy you want to use
+playGame(Game, 10, randomStrat) # Enter the number of games and the strategy you want to use

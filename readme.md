@@ -2,10 +2,9 @@ Brief outline of the project:
     
     1. Create the simulator
         a. Generate the gameboard
-        b. Initially remove all pre-made monos
-        c. Reconcatenate each individual list with new randomly generated lists
-        d. Develop the idea of moves
-        e. Apply moves
+        b. Initially remove all pre-made monos - "clean" the board" and replenish with new randoms
+        d. Find the possible available moves
+        e. Apply moves depending on the chosen strategy
         f. Repeat until no further moves are possible - Done
         
     2. Test different strategies - Need to write more, research sorting in order to play nearer the top
