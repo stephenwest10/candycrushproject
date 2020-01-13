@@ -143,7 +143,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
         for a in range(0, len(numMovesAvailable)-1):
             delta = numMovesAvailable[a+1] - numMovesAvailable[a]
             deltaChangeByChainPosition[numMovesAvailable[a]].append(delta)
-        print "Game", i, "length:", game.gameLength
+        #print "Game", i, "length:", game.gameLength
        # print "Chain of available moves in Game", i, numMovesAvailable  
     print deltaChangeByChainPosition
 
@@ -163,7 +163,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     print "Lowest Game Length:", min(gameLengths)
 
     for i in deltaChangeByChainPosition.keys():
-        print i, deltaChangeByChainPosition[i]
+        #print i, deltaChangeByChainPosition[i]
         valuesToPlot = Counter(deltaChangeByChainPosition[i])
         n = len(deltaChangeByChainPosition[i])
         plt.plot(sorted(valuesToPlot.keys()), [valuesToPlot[key]/float(len(deltaChangeByChainPosition[i])) for key in valuesToPlot.keys()], label=str(i)) 
@@ -180,4 +180,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 20, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 5000, randomStrat) # Enter the number of games and the strategy you want to use
