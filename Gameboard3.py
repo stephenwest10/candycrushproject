@@ -145,7 +145,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
             deltaChangeByChainPosition[numMovesAvailable[a]].append(delta)
         #print "Game", i, "length:", game.gameLength
        # print "Chain of available moves in Game", i, numMovesAvailable  
-    print deltaChangeByChainPosition
+    print deltaChangeByChainPosition #long output but does the data produce seem right? Sense check
 
         
     print gameLengths # so I can collect the length data if I ever want to reproduce
@@ -180,4 +180,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 50, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 5000, randomStrat) # Enter the number of games and the strategy you want to use
