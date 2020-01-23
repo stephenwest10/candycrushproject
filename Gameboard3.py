@@ -166,10 +166,13 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
         #print i, deltaChangeByChainPosition[i]
         valuesToPlot = Counter(deltaChangeByChainPosition[i])
         n = len(deltaChangeByChainPosition[i])
-        plt.plot(sorted(valuesToPlot.keys()), [valuesToPlot[key]/float(len(deltaChangeByChainPosition[i])) for key in valuesToPlot.keys()], label=str(i)) 
+        plt.plot(sorted(valuesToPlot.keys()), [valuesToPlot[key]/float(n) for key in sorted(valuesToPlot.keys())], label=str(i)) 
+    plt.xlim(-10, 10)
     plt.legend()   
     plt.title("Transition Probability from each number of available moves")
     plt.show()
+    
+    
     #this plots the histogram of the lengths
     plt.hist(gameLengths) 
     plt.axis([0, 100, 0, 50]) 
@@ -180,4 +183,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 500, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 50, randomStrat) # Enter the number of games and the strategy you want to use
