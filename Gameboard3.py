@@ -162,7 +162,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     print "Highest Game Length:", max(gameLengths)
     print "Lowest Game Length:", min(gameLengths)
     #Can change this list to print out the different line graphs
-    for i in [1, 5, 10]:
+    for i in [1, 4, 8, 12, 16]:
         #print i, deltaChangeByChainPosition[i]
         valuesToPlot = Counter(deltaChangeByChainPosition[i])
         n = len(deltaChangeByChainPosition[i])
@@ -180,4 +180,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 5000, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 500, randomStrat) # Enter the number of games and the strategy you want to use
