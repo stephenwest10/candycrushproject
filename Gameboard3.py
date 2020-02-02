@@ -133,7 +133,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
     gameLengths = []
     deltaChangeByChainPosition = defaultdict(list)
     for i in range(ITERATIONS):
-        game = Game(8, 8, 8)
+        game = Game(8, 8, 7)
         numMovesAvailable = []
         while not game.gameOver():
             move = strategy(game)     
@@ -170,6 +170,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.xlim(-10, 10)
     plt.legend()   
     plt.title("Transition Probability from each number of available moves")
+    plt.savefig("Move delta positions.png")
     plt.show()
     
     
@@ -183,4 +184,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 50, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 100, randomStrat) # Enter the number of games and the strategy you want to use
