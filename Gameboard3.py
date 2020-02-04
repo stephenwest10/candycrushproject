@@ -170,7 +170,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.xlim(-10, 10)
     plt.legend()   
     plt.title("Transition Probability from each number of available moves")
-    plt.savefig("Move delta positions.png")
+    plt.savefig("Move delta positions.png") #saves in this directory
     plt.show()
     
     
