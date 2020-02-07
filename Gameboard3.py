@@ -133,7 +133,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
     gameLengths = []
     deltaChangeByChainPosition = defaultdict(list)
     for i in range(ITERATIONS):
-        game = Game(8, 8, 7)
+        game = Game(8, 8, 9)
         numMovesAvailable = []
         while not game.gameOver():
             move = strategy(game)     
@@ -143,7 +143,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
         for a in range(0, len(numMovesAvailable)-1):
             delta = numMovesAvailable[a+1] - numMovesAvailable[a]
             deltaChangeByChainPosition[numMovesAvailable[a]].append(delta)
-        #print "Game", i, "length:", game.gameLength
+        print "Game", i, "length:", game.gameLength
        # print "Chain of available moves in Game", i, numMovesAvailable  
     print deltaChangeByChainPosition #long output but does the data produce seem right? Sense check
 
@@ -184,4 +184,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 100, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 500, randomStrat) # Enter the number of games and the strategy you want to use
