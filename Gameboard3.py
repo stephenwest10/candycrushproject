@@ -109,6 +109,8 @@ class Game:
 
     def getPossibleMoves(self):
         return self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves()
+        #temporary
+        print self.getPossibleVerticalMoves() + self.getPossibleHorizontalMoves()
 
     def gameOver(self):
         return len(self.getPossibleMoves()) == 0
@@ -121,8 +123,15 @@ class Game:
         self.gameLength += 1
     
 # Use the first possible move in the list - this also happens to be the move at the 'top left' of the board
-def basicStrat(game):
-    return game.getPossibleMoves()[0]
+def topStrat(game):
+    moves = game.getPossibleMoves()
+    moveSorted = sorted(moves, key=lambda x: x[0][0])
+    return moveSorted[0]
+#this uses the last element in the moves list - bottom right?
+def bottomStrat(game):
+    moves = game.getPossibleMoves()
+    moveSorted = sorted(moves, key=lambda x: x[0][0])
+    return moveSorted[-1]
 
 # Use a random move out of the possible moves
 def randomStrat(game):
@@ -133,19 +142,21 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
     gameLengths = []
     deltaChangeByChainPosition = defaultdict(list)
     for i in range(ITERATIONS):
-        game = Game(8, 8, 9)
+        game = Game(8, 8, 8)
         numMovesAvailable = []
         while not game.gameOver():
             move = strategy(game)     
             game.doMove(move)
             numMovesAvailable.append(len(game.getPossibleMoves()))
+            #print game.getPossibleMoves()  #to see if the strategy picks the right move
+            #pprint(game.board)  #again to work out if game mechanics are working correctly
         gameLengths.append(game.gameLength)
         for a in range(0, len(numMovesAvailable)-1):
             delta = numMovesAvailable[a+1] - numMovesAvailable[a]
             deltaChangeByChainPosition[numMovesAvailable[a]].append(delta)
         print "Game", i, "length:", game.gameLength
        # print "Chain of available moves in Game", i, numMovesAvailable  
-    print deltaChangeByChainPosition #long output but does the data produce seem right? Sense check
+    #print deltaChangeByChainPosition #long output but does the data produce seem right? Sense check
 
         
     print gameLengths # so I can collect the length data if I ever want to reproduce
@@ -184,4 +195,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 500, randomStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 1000, topStrat) # Enter the number of games and the strategy you want to use
