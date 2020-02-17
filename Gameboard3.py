@@ -122,18 +122,18 @@ class Game:
         self.clearBoard()
         self.gameLength += 1
     
-# Use the first possible move in the list - this also happens to be the move at the 'top left' of the board
+#playing from the top
 def topStrat(game):
     moves = game.getPossibleMoves()
     moveSorted = sorted(moves, key=lambda x: x[0][0])
-    return moveSorted[0]
-#this uses the last element in the moves list - bottom right?
+    return moveSorted[-1]  #may seem counter-intuitive, but our gravity works from the right, so the monos at the top are those furthest along the board
+#playing from the bottom
 def bottomStrat(game):
     moves = game.getPossibleMoves()
     moveSorted = sorted(moves, key=lambda x: x[0][0])
-    return moveSorted[-1]
+    return moveSorted[0]
 
-# Use a random move out of the possible moves
+#PLaying randomly
 def randomStrat(game):
     return game.getPossibleMoves()[random.randint(0, len(game.getPossibleMoves())-1)]
 
@@ -142,7 +142,7 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
     gameLengths = []
     deltaChangeByChainPosition = defaultdict(list)
     for i in range(ITERATIONS):
-        game = Game(8, 8, 8)
+        game = Game(8, 8, 8) #defines the game parameters, board size and number of colours
         numMovesAvailable = []
         while not game.gameOver():
             move = strategy(game)     
@@ -155,20 +155,17 @@ def playGame(game, ITERATIONS, strategy):   #Iterations is the number of times y
             delta = numMovesAvailable[a+1] - numMovesAvailable[a]
             deltaChangeByChainPosition[numMovesAvailable[a]].append(delta)
         print "Game", i, "length:", game.gameLength
-       # print "Chain of available moves in Game", i, numMovesAvailable  
-    #print deltaChangeByChainPosition #long output but does the data produce seem right? Sense check
-
         
     print gameLengths # so I can collect the length data if I ever want to reproduce
+    data = open("gamelengthdata.txt","w+")
+    data.write(str(gameLengths))
+    data.close()
     summaryAndHistPlot(gameLengths, deltaChangeByChainPosition)
     return gameLengths, deltaChangeByChainPosition
    
 
 def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
-    #making a frequency table and some quick statistics
-    #for i in range(max(gameLengths) + 1):
-    #   print "Number of games with length", i,":", gameLengths.count(i)
-    print stat.describe(gameLengths)
+    print stat.describe(gameLengths)   #summary statistics
     print "Mean Game Length:", round(scipy.mean(gameLengths), 3)
     print "Highest Game Length:", max(gameLengths)
     print "Lowest Game Length:", min(gameLengths)
@@ -181,7 +178,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.xlim(-10, 10)
     plt.legend()   
     plt.title("Transition Probability from each number of available moves")
-    plt.savefig("Move delta positions.png") #saves in this directory
+    plt.savefig("Move delta positions.png") #Saves our graph in this current directory
     plt.show()
     
     
@@ -195,4 +192,4 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     plt.title("Game Lengths when using the random strategy of taking a random move in the list")
     plt.show()
 
-playGame(Game, 1000, topStrat) # Enter the number of games and the strategy you want to use
+playGame(Game, 10, topStrat) # Enter the number of games and the strategy you want to use
