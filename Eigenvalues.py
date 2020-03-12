@@ -2,6 +2,9 @@ import numpy.matlib
 import numpy as np 
 import matplotlib.pyplot as plt
 
+#A program which calculates the eigenvalues of transition matrices of discrete phase distributions
+#not actually used in the written project
+
 matrix4 = np.array([[0, 1, 0, 0], [1/4, 0, 3/4, 0], [0, 2/4, 0, 2/4], [0, 0, 3/4, 0]])
 matrix5 = np.array([[0, 1, 0, 0, 0], [1/5, 0, 4/5, 0, 0], [0, 2/5, 0, 3/5, 0], [0, 0, 3/5, 0, 2/5], [0, 0, 0, 4/5, 0]])
 matrix6 = np.array([[0, 1, 0, 0, 0, 0], [1/6, 0, 5/6, 0, 0, 0], [0, 2/6, 0, 4/6, 0, 0], [0, 0, 3/6, 0, 3/6, 0], [0, 0, 0, 4/6, 0, 2/6], [0, 0, 0, 0, 5/6, 0]])

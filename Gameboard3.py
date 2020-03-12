@@ -182,7 +182,7 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     #A graph for the Move Deltas per position in the Chain
     #Can change this list to print out the different line graphs
     for i in [1, 4, 8, 12, 16]:
-        #print i, deltaChangeByChainPosition[i] - the output data which we plot for each chain position
+        #print i, deltaChangeByChainPosition[i] - the output data which we plot
         valuesToPlot = Counter(deltaChangeByChainPosition[i])
         n = len(deltaChangeByChainPosition[i])
         plt.plot(sorted(valuesToPlot.keys()), [valuesToPlot[key]/float(n) for key in sorted(valuesToPlot.keys())], label=str(i)) 
@@ -212,4 +212,5 @@ def summaryAndHistPlot(gameLengths, deltaChangeByChainPosition):
     #Change the title depending on the strategy used
     plt.show()
 
-playGame(Game, 15000, randomStrat) #Enter the number of game iterations and the strategy you want to use
+#Enter the number of game iterations and the strategy you want to use
+playGame(Game, 15000, randomStrat) 
