@@ -1,6 +1,6 @@
 Modelling Candy Crush with Stochastic Processes
 
-git
+
 The Python file Gameboard3.py defines the main simulator for the Candy Crush type game. The simulator generates a Gameboard, searches for potential moves, and then allows a strategy to pick between these moves to play the game. Every time a move is made, the 'mono' disappears, allowing new pieces to be generated from the top and fall down in a gravity like fashion to replace them.
 
 The simulator models the 2D board as a list of lists, with the 'top' in the imagined game actually being the most rightward element in the list.
